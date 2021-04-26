@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { incrementHandler, decrementHandler } from './store/action/counter.action'
 
 function App() {
+
+  const reduxStore = useSelector(state => state);
+  const dispatcher = useDispatch();
+
+  console.log(reduxStore);
+
+  const clickHandler = () => {
+    // console.log('clicked');
+    dispatcher(incrementHandler());
+  }
+  const dcHandler = () => {
+    dispatcher(decrementHandler());
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{reduxStore.storeCounter.mainCounter}</h1>
+      <button onClick={clickHandler}>+</button>
+      <button onClick={dcHandler}>-</button>
     </div>
   );
 }
